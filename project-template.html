@@ -11692,7 +11692,7 @@ If you only need to load model weights and optimizer state, use the safe `Learne
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h4 id="New-Score-of-0.50871">New Score of 0.50871<a class="anchor-link" href="#New-Score-of-0.50871">¶</a></h4>
+<h4 id="New-Score-of-'?'">New Score of '?'<a class="anchor-link" href="#New-Score-of-'?'">¶</a></h4>
 </div>
 </div>
 </div>
@@ -12250,7 +12250,7 @@ Feature Metadata (Processed):
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h4 id="New-Score-of-0.52920">New Score of 0.52920<a class="anchor-link" href="#New-Score-of-0.52920">¶</a></h4>
+<h4 id="New-Score-of-'?'">New Score of '?'<a class="anchor-link" href="#New-Score-of-'?'">¶</a></h4>
 </div>
 </div>
 </div>
@@ -12292,16 +12292,19 @@ Feature Metadata (Processed):
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [70]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [74]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Take the 3 kaggle scores and creating a line plot to show improvement</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Extract the best validation score from each model using AutoGluon's leaderboard</span>
+<span class="n">score_initial</span> <span class="o">=</span> <span class="n">predictor</span><span class="o">.</span><span class="n">leaderboard</span><span class="p">(</span><span class="n">silent</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="s1">'score_val'</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">score_features</span> <span class="o">=</span> <span class="n">predictor_new_features</span><span class="o">.</span><span class="n">leaderboard</span><span class="p">(</span><span class="n">silent</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="s1">'score_val'</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">score_hpo</span> <span class="o">=</span> <span class="n">predictor_new_hpo</span><span class="o">.</span><span class="n">leaderboard</span><span class="p">(</span><span class="n">silent</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="s1">'score_val'</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="c1"># Replace the example scores with your actual Kaggle scores</span>
 <span class="n">score_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s2">"test_eval"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"initial"</span><span class="p">,</span> <span class="s2">"add_features"</span><span class="p">,</span> <span class="s2">"hpo"</span><span class="p">],</span>
-    <span class="s2">"score"</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.71234</span><span class="p">,</span> <span class="mf">0.68901</span><span class="p">,</span> <span class="mf">0.67012</span><span class="p">]</span>  <span class="c1"># &lt;-- Put your real Kaggle scores here</span>
+    <span class="s2">"model"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"initial"</span><span class="p">,</span> <span class="s2">"add_features"</span><span class="p">,</span> <span class="s2">"hpo"</span><span class="p">],</span>
+    <span class="s2">"score_val"</span><span class="p">:</span> <span class="p">[</span><span class="n">score_initial</span><span class="p">,</span> <span class="n">score_features</span><span class="p">,</span> <span class="n">score_hpo</span><span class="p">]</span>
 <span class="p">})</span>
 
 <span class="n">score_table</span>
@@ -12315,7 +12318,7 @@ Feature Metadata (Processed):
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[70]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[74]:</div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
 <div>
 <style scoped="">
@@ -12335,25 +12338,25 @@ Feature Metadata (Processed):
 <thead>
 <tr style="text-align: right;">
 <th></th>
-<th>test_eval</th>
-<th>score</th>
+<th>model</th>
+<th>score_val</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <th>0</th>
 <td>initial</td>
-<td>0.71234</td>
+<td>-139.348479</td>
 </tr>
 <tr>
 <th>1</th>
 <td>add_features</td>
-<td>0.68901</td>
+<td>-50.844303</td>
 </tr>
 <tr>
 <th>2</th>
 <td>hpo</td>
-<td>0.67012</td>
+<td>-61.464366</td>
 </tr>
 </tbody>
 </table>
